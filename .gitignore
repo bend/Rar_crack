@@ -2,3 +2,10 @@
 *.so
 .DS_STORE
 rarcrack
+*.swp
+test
+test_matrix
+test_linked_list
+test_file
+tests
+tag
