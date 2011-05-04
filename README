@@ -1,0 +1,13 @@
+This is a rarcrack password cracker that uses the brute force attack
+
+To compile Librairy:
+$ cd unrar/
+$ make lib -f makefile.unix
+$ cp libunrar.so ..
+
+-p X defines that rarcrack will use X process
+-t X defines that rarcrack will use X threads
+
+To execute:
+
+LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH ./rarcrack -p [NB] [RARFILE]
