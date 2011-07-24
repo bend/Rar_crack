@@ -1,17 +1,19 @@
 
 
-inline unsigned int RangeCoder::GetChar() {
-    return(UnpackRead->GetChar());
+inline unsigned int RangeCoder::GetChar()
+{
+  return(UnpackRead->GetChar());
 }
 
 
-void RangeCoder::InitDecoder(Unpack *UnpackRead) {
-    RangeCoder::UnpackRead = UnpackRead;
-    low = code = 0;
-    range = uint(-1);
+void RangeCoder::InitDecoder(Unpack *UnpackRead)
+{
+  RangeCoder::UnpackRead=UnpackRead;
 
-    for (int i = 0; i < 4; i++)
-        code = (code << 8) | GetChar();
+  low=code=0;
+  range=uint(-1);
+  for (int i=0;i < 4;i++)
+    code=(code << 8) | GetChar();
 }
 
 
@@ -27,17 +29,20 @@ void RangeCoder::InitDecoder(Unpack *UnpackRead) {
 }
 
 
-inline int RangeCoder::GetCurrentCount() {
-    return (code - low) / (range /= SubRange.scale);
+inline int RangeCoder::GetCurrentCount() 
+{
+  return (code-low)/(range /= SubRange.scale);
 }
 
 
-inline uint RangeCoder::GetCurrentShiftCount(uint SHIFT) {
-    return (code - low) / (range >>= SHIFT);
+inline uint RangeCoder::GetCurrentShiftCount(uint SHIFT) 
+{
+  return (code-low)/(range >>= SHIFT);
 }
 
 
-inline void RangeCoder::Decode() {
-    low += range * SubRange.LowCount;
-    range *= SubRange.HighCount - SubRange.LowCount;
+inline void RangeCoder::Decode()
+{
+  low += range*SubRange.LowCount;
+  range *= SubRange.HighCount-SubRange.LowCount;
 }
