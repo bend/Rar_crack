@@ -32,47 +32,48 @@
 
 struct RARHeaderData
 {
-  char           ArcName[260];
-  char           FileName[260];
-  unsigned int   Flags;
-  unsigned int   PackSize;
-  unsigned int   UnpSize;
-  unsigned int   HostOS;
-  unsigned int   FileCRC;
-  unsigned int   FileTime;
-  unsigned int   UnpVer;
-  unsigned int   Method;
-  unsigned int   FileAttr;
-  char         * CmtBuf;
-  unsigned int   CmtBufSize;
-  unsigned int   CmtSize;
-  unsigned int   CmtState;
+    char           ArcName[260];
+    char           FileName[260];
+    unsigned int   Flags;
+    unsigned int   PackSize;
+    unsigned int   UnpSize;
+    unsigned int   HostOS;
+    unsigned int   FileCRC;
+    unsigned int   FileTime;
+    unsigned int   UnpVer;
+    unsigned int   Method;
+    unsigned int   FileAttr;
+    char*          CmtBuf;
+    unsigned int   CmtBufSize;
+    unsigned int   CmtSize;
+    unsigned int   CmtState;
 };
 
 
 struct RAROpenArchiveData
 {
-  char         * ArcName;
-  unsigned int   OpenMode;
-  unsigned int   OpenResult;
-  char         * CmtBuf;
-  unsigned int   CmtBufSize;
-  unsigned int   CmtSize;
-  unsigned int   CmtState;
+    char*          ArcName;
+    unsigned int   OpenMode;
+    unsigned int   OpenResult;
+    char*          CmtBuf;
+    unsigned int   CmtBufSize;
+    unsigned int   CmtSize;
+    unsigned int   CmtState;
 };
 
-typedef int (*unrar_callback)(unsigned int msg,long UserData,long P1,long P2);
+typedef int (*unrar_callback)(unsigned int msg, long UserData, long P1, long P2);
 
 
-enum UNRARCALLBACK_MESSAGES {
-  UCM_CHANGEVOLUME,UCM_PROCESSDATA,UCM_NEEDPASSWORD
+enum UNRARCALLBACK_MESSAGES
+{
+    UCM_CHANGEVOLUME, UCM_PROCESSDATA, UCM_NEEDPASSWORD
 };
 
-void * RAROpenArchive(struct RAROpenArchiveData *ArchiveData);
-int    RARCloseArchive(void * hArcData);
-int    RARReadHeader(void * hArcData,struct RARHeaderData *HeaderData);
-int    RARProcessFile(void * hArcData,int Operation,char *DestPath,char *DestName);
-void   RARSetCallback(void * hArcData,unrar_callback Callback,long UserData);
-void   RARSetPassword(void * hArcData,char *Password);
+void* RAROpenArchive(struct RAROpenArchiveData* ArchiveData);
+int    RARCloseArchive(void* hArcData);
+int    RARReadHeader(void* hArcData, struct RARHeaderData* HeaderData);
+int    RARProcessFile(void* hArcData, int Operation, char* DestPath, char* DestName);
+void   RARSetCallback(void* hArcData, unrar_callback Callback, long UserData);
+void   RARSetPassword(void* hArcData, char* Password);
 
 #endif
