@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <signal.h>
+#include <sys/wait.h>
+#include <getopt.h>
 #define LENGTH 6;
 
 const char* file;
@@ -135,10 +137,9 @@ executeProc(int nbProc){
     int lastIndex;
     int i;
     int *fd;
-    int err;
     char ** domain;
         fd = malloc(nbProc*sizeof(int));
-        err = pipe(fd);
+        pipe(fd);
         nbElemForEach = (strlen(tab)/nbProc)+1;
         lastIndex = 0;
         domain = malloc(sizeof(char*)*nbProc);          /* finding the domain for the thread i.e divinding the alphabet by nb procs */
@@ -184,7 +185,6 @@ executeThread(int nbThreads){
     int nbElemForEach;
     int lastIndex;
     int i;
-    int thread_join_res;
     char ** domain;
     
         threads = malloc(sizeof(pthread_t)*nbThreads);
@@ -222,7 +222,7 @@ executeThread(int nbThreads){
             
         }
         for(i=0; i<nbThreads; i++)
-			thread_join_res = pthread_join(threads[i], NULL);
+			pthread_join(threads[i], NULL);
         pthread_exit(NULL);
         free(domain);
         free(threads);
